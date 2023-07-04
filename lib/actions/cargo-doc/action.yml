@@ -25,6 +25,26 @@ runs:
         CTX_INPUTS_TARGET_DIRECTORY: ${{ inputs.target_directory }}
       shell: bash
       run: |
+        #
+        # Query cargo for the target directory.
+        #
+        args=(
+          "--format-version 1"
+          "--no-deps"
+        )
+        [[ ! -z "${CTX_INPUTS_MANIFEST_PATH}" ]] && args+=( "--manifest-path" "${CTX_INPUTS_MANIFEST_PATH}" )
+        ACT_TARGET_DIR=$(cargo metadata "${args[@]}" | jq -cer ".target_directory")
+
+        #
+        # Run `cargo doc` for the specified manifest. We only build docs for
+        # the local crate, not for any dependencies, so the docs are ready to
+        # be deployed to project pages.
+        #
+        # We also currently avoid building docs for anything but the library.
+        # This is due to name-clashes in the doc-output of rustdoc. Until this
+        # is fixed, we simply avoid building anything but the library (this is
+        # also what docs.rs does).
+        #
         args=(
           "--lib"
           "--no-deps"
@@ -32,3 +52,13 @@ runs:
         [[ ! -z "${CTX_INPUTS_MANIFEST_PATH}" ]] && args+=( "--manifest-path" "${CTX_INPUTS_MANIFEST_PATH}" )
         [[ ! -z "${CTX_INPUTS_TARGET_DIRECTORY}" ]] && args+=( "--target-dir" "${CTX_INPUTS_TARGET_DIRECTORY}" )
         cargo doc "${args[@]}"
+
+        #
+        # Drop the lock-file in the doc build-dir. This is used to serialize
+        # generation of the shared outputs. However, the permissions of the
+        # lock clash conflict with the rules of github-pages. Hence, drop the
+        # file after the build, so it does not show up in any deployments. It
+        # is automatically re-created when you run any further doc-builds,
+        # though.
+        #
+        rm -f "${CTX_INPUTS_TARGET_DIRECTORY:-"${ACT_TARGET_DIR}"}/doc/.lock"

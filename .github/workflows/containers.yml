@@ -14,10 +14,14 @@ name: "CI for Image Builds"
 on:
   pull_request:
     branches: ["main"]
-    paths: ["lib/containers/**"]
+    paths:
+    - ".github/workflows/containers.yml"
+    - "lib/containers/**"
   push:
     branches: ["main", "wip/**"]
-    paths: ["lib/containers/**"]
+    paths:
+    - ".github/workflows/containers.yml"
+    - "lib/containers/**"
   workflow_dispatch:
     inputs:
       target:

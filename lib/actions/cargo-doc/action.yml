@@ -29,7 +29,7 @@ runs:
         # Query cargo for the target directory.
         #
         args=(
-          "--format-version 1"
+          "--format-version=1"
           "--no-deps"
         )
         [[ ! -z "${CTX_INPUTS_MANIFEST_PATH}" ]] && args+=( "--manifest-path" "${CTX_INPUTS_MANIFEST_PATH}" )

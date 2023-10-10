@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93333"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="osiris-eye.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="osiris-eye.png"
+   inkscape:export-xdpi="37.5"
+   inkscape:export-ydpi="37.5"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title260">Osiris Eye</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     borderlayer="true"
+     inkscape:zoom="0.57435673"
+     inkscape:cx="364.75589"
+     inkscape:cy="576.2969"
+     inkscape:window-width="1500"
+     inkscape:window-height="943"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g883">
+    <inkscape:grid
+       type="xygrid"
+       id="grid256"
+       dotted="false"
+       empspacing="8" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect891"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect887"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect7913"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect7907"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect5826"
+       is_visible="true"
+       lpeversion="1" />
+  </defs>
+  <g
+     inkscape:label="eye-paths"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:none">
+    <path
+       style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       d="m 16.933333,135.46666 c 0,0 44.45,-67.733328 118.533327,-67.733328 C 209.55,67.733332 254,135.46666 254,135.46666 c 0,0 -44.45,67.73334 -118.53334,67.73334 -74.083327,0 -118.533327,-67.73334 -118.533327,-67.73334 z"
+       id="path488"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="eye" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       id="path4369"
+       cx="135.46666"
+       cy="135.46666"
+       r="50.799999"
+       inkscape:label="sclera" />
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:0.30868"
+       id="path4425"
+       cx="135.46666"
+       cy="135.46666"
+       r="29.633339"
+       inkscape:label="iris" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.46667;stroke-dasharray:none;stroke-opacity:1"
+       id="path7969"
+       cx="160.86667"
+       cy="118.53333"
+       r="12.7"
+       inkscape:label="iris-reflection" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:8.46667;stroke-dasharray:none;stroke-opacity:1"
+       d="m 135.46666,182.03333 c -12.23671,-0.60091 -24.25211,-5.10669 -33.86666,-12.7 -9.406665,-7.42913 -16.475089,-17.77619 -19.975075,-29.24037 -3.499987,-11.46417 -3.416074,-23.99482 0.237134,-35.4111 3.653207,-11.416276 10.859571,-21.667743 20.364891,-28.970225 9.50531,-7.302482 21.26759,-11.623718 33.23971,-12.211636"
+       id="path7905"
+       inkscape:path-effect="#path-effect7907"
+       inkscape:original-d="m 135.46666,182.03333 c -11.28862,-4.23307 -22.57751,-8.4664 -33.86666,-12.7 -11.289155,-4.2336 22.57804,-70.55529 33.86666,-105.833331"
+       inkscape:label="left-spiral" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:8.46667;stroke-dasharray:none;stroke-opacity:1"
+       d="m 135.6743,207.4334 c 12.23669,-0.60093 24.25206,-5.10672 33.8666,-12.70002 9.40667,-7.42913 16.47509,-17.77619 19.97508,-29.24038 3.49999,-11.46418 3.41609,-23.99483 -0.23711,-35.41111 -3.6532,-11.41629 -10.85955,-21.66777 -20.36486,-28.97026 C 159.4087,93.809129 147.64642,89.487872 135.6743,88.899931"
+       id="path7909"
+       inkscape:path-effect="#path-effect7913"
+       inkscape:original-d="m 135.6743,207.4334 c 11.2886,-4.23308 22.57747,-8.46641 33.8666,-12.70002 11.28914,-4.2336 -22.578,-70.55537 -33.8666,-105.833449"
+       inkscape:label="right-spiral" />
+  </g>
+  <g
+     inkscape:label="eye-combined"
+     inkscape:groupmode="layer"
+     id="g883"
+     style="display:inline">
+    <path
+       id="path871"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       inkscape:label="eye-dark"
+       d="M 135.59276 67.734366 C 124.52767 68.294732 113.59218 72.318955 104.80652 79.068558 C 95.999364 85.834676 89.279378 95.395097 85.894498 105.97286 C 82.903958 115.3183 82.498589 125.52651 84.680101 135.1039 A 50.799999 50.799999 0 0 1 135.46666 84.666666 A 50.799999 50.799999 0 0 1 135.88214 84.682169 L 135.88266 84.671833 C 135.99444 84.677323 136.10579 84.688479 136.21752 84.694571 A 50.799999 50.799999 0 0 1 155.652 88.887597 C 161.31171 91.071607 166.66703 94.046629 171.49237 97.753722 C 181.69579 105.59255 189.38917 116.53636 193.31068 128.7911 C 197.23218 141.04584 197.32146 154.42215 193.56441 166.72832 C 189.94363 178.58813 182.79658 189.26838 173.24524 197.16626 C 224.39654 180.57235 254 135.46667 254 135.46666 C 254 135.46667 209.59998 67.811387 135.59276 67.734366 z M 98.015205 73.661136 C 46.662954 90.168276 16.933333 135.46667 16.933333 135.46666 C 16.933333 135.46667 61.38357 203.2 135.46666 203.2 C 135.49449 203.2 135.52205 203.1995 135.54986 203.19948 C 146.85827 202.62631 158.03228 198.42977 166.91797 191.41209 C 175.63374 184.52861 182.22379 174.87983 185.46671 164.25767 C 188.34847 154.81851 188.60037 144.54225 186.24703 134.94732 A 50.799999 50.799999 0 0 1 186.26666 135.46666 A 50.799999 50.799999 0 0 1 135.46666 186.26666 A 50.799999 50.799999 0 0 1 135.25996 186.25891 L 135.25996 186.2615 C 135.2327 186.26016 135.20557 186.25719 135.17831 186.25581 A 50.799999 50.799999 0 0 1 113.14193 181.0861 C 108.08832 178.90296 103.30968 176.07843 98.976386 172.65613 C 88.878863 164.68136 81.333181 153.63448 77.576142 141.32832 C 73.819104 129.02218 73.908362 115.64738 77.829874 103.39265 C 81.538843 91.802123 88.625639 81.388404 98.015205 73.661136 z " />
+    <path
+       id="circle875"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.30868"
+       inkscape:label="circle-dark"
+       d="M 135.46666 105.83333 A 29.633339 29.633339 0 0 0 105.83333 135.46666 A 29.633339 29.633339 0 0 0 135.46666 165.1 A 29.633339 29.633339 0 0 0 165.1 135.46666 A 29.633339 29.633339 0 0 0 164.70106 130.62458 A 12.7 12.7 0 0 1 160.86666 131.23333 A 12.7 12.7 0 0 1 148.16666 118.53333 A 12.7 12.7 0 0 1 151.17992 110.34365 A 29.633339 29.633339 0 0 0 135.46666 105.83333 z " />
+  </g>
+  <metadata
+     id="metadata258">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Osiris Eye</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Osiris Community</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:date>2023/06/20</dc:date>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

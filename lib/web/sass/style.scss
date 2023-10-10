@@ -1,0 +1,293 @@
+// Style Sheet
+//
+// This is the main style-sheet for visual appearance of the main pages. It is
+// separated into logical groups with each group possibly matching for the same
+// elements.
+
+@charset "utf-8";
+
+// Layout
+//
+// This section defines the layout of the main page. It defines how each
+// element is positioned and how they grow/shrink depending on viewport
+// changes. Visual effects that are not tied to the positioning are not part
+// of this section.
+
+$max-width: 64rem;
+$min-width: 32rem;
+
+body {
+        font-size: 1.2rem;
+        margin: 0;
+        padding: 0;
+}
+
+main section,
+footer section,
+{
+        margin: auto;
+        max-width: $max-width;
+        padding: 2rem 0.5rem;
+}
+
+// Layout: header
+//
+// Layout configuration of the top-header. We render the logo-image with the
+// navigation next to it.
+
+header {
+        font-size: 1.4rem;
+        margin: 1rem;
+
+        // Display logo+nav boxes via a flexbox, wrapping the navigation to
+        // the next line for narrow views, but centering each element when on
+        // its own.
+        display: flex;
+        flex-wrap: wrap;
+
+        align-items: center;
+        justify-content: center;
+}
+
+header #logo {
+        // Left-align logo-box by extending the right margin.
+        margin-right: auto;
+
+        // Ensure the a+img in the logo-box are horizontally centered for
+        // when the box is bigger than the content.
+        display: flex;
+        flex-wrap: wrap;
+
+        align-items: center;
+        justify-content: center;
+}
+
+header #nav-global {
+        // Ensure the ul+li in the nav-box are vertically centered.
+        display: flex;
+        flex-wrap: wrap;
+
+        align-items: center;
+        justify-content: center;
+}
+
+header #nav-global ul {
+        // Clear default list style.
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        // Display each nav-entry via a flexbox, wrapping on overflow and
+        // centering all elements.
+        display: flex;
+        flex-wrap: wrap;
+
+        align-items: center;
+        justify-content: center;
+}
+
+header #nav-global li {
+        padding: 0.2rem 1rem;
+}
+
+@media (max-width: $min-width) {
+        header #logo {
+                // On narrow screens suppress the left-align of the logo by
+                // clearing its auto-margin, and instead occupy a full line so
+                // the logo gets centered.
+                flex-basis: 100%;
+                margin: 0;
+        }
+}
+
+// Layout: main
+//
+// XXX
+
+main #title {
+        padding: 0rem 0.5rem;
+}
+
+// Layout: footer
+//
+// XXX
+
+footer #maintenance {
+        text-align: center;
+}
+
+// Visual
+//
+// This section configures the visual appearance of the individual elements. No
+// major layout configuration is done, but it can still have minor effects on
+// the layout due to font-sizing and similar.
+
+$color-background-dark: #444444;
+$color-background-content: white;
+$color-background-light: white;
+$color-text-dark: black;
+$color-text-content: black;
+$color-text-light: white;
+$color-highlight-dark: #7A206F;
+$color-highlight-light: #8A307F;
+
+$font-logo: "Comfortaa";
+$font-content: "Jetbrains Mono";
+
+@font-face {
+        font-display: swap;
+        font-family: "Comfortaa";
+        font-style: normal;
+        font-weight: 400;
+        src: url("fonts/Comfortaa-Regular.ttf"), local("ttf");
+}
+
+@font-face {
+        font-display: swap;
+        font-family: "Jetbrains Mono";
+        font-style: normal;
+        font-weight: 400;
+        src: url("fonts/JetBrainsMono-Regular.ttf"), local("ttf");
+}
+
+header {
+        background-color: $color-background-light;
+        color: $color-text-dark;
+}
+
+main {
+        background-color: $color-background-content;
+        color: $color-text-content;
+}
+
+footer {
+        background-color: $color-background-dark;
+        color: $color-text-light;
+}
+
+// Visual: links
+//
+// Ensure links discard all of the default styling and instead use a thick
+// highlighted underline, expanding to full background-highlight on hover.
+
+header nav a,
+main a,
+{
+        color: $color-text-content;
+}
+
+footer a {
+        color: $color-text-light;
+}
+
+header nav a,
+main a,
+footer a,
+{
+        text-decoration: underline $color-highlight-light 3px;
+}
+
+header nav a:hover,
+main a:hover,
+footer a:hover,
+{
+        background-color: $color-highlight-light;
+        color: $color-text-light;
+}
+
+// Visual: headers
+//
+// Prepend as many '#' to each header as given by its level, color it using
+// the highlight-color.
+
+main h1::before,
+main h2::before,
+main h3::before,
+main h4::before,
+main h5::before,
+main h6::before {
+        color: $color-highlight-light;
+}
+
+main h1::before {
+        content: "# ";
+}
+
+main h2::before {
+        content: "## ";
+}
+
+main h3::before {
+        content: "### ";
+}
+
+main h4::before {
+        content: "#### ";
+}
+
+main h5::before {
+        content: "##### ";
+}
+
+main h6::before {
+        content: "###### ";
+}
+
+// Visual: header
+//
+// This section contains styling properties of the upper logo in the header,
+// as well as the global navigation next to it.
+
+header #logo {
+        font-family: $font-logo, sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+}
+
+header #logo,
+header #logo a,
+header #logo a:hover,
+{
+        background-color: transparent;
+        color: $color-text-dark;
+        text-decoration: none;
+}
+
+header #logo img {
+        vertical-align: middle;
+}
+
+header #nav-global {
+        font-family: $font-content, sans-serif;
+}
+
+// Visual: main
+//
+// XXX
+
+main {
+        font-family: $font-content, sans-serif;
+}
+
+// Visual: main title
+//
+// XXX
+
+main #title {
+        font-family: $font-logo, sans-serif;
+        font-size: 2rem;
+}
+
+main #title h1 {
+        font-size: 4rem;
+        font-weight: 1000;
+        margin: 1rem 0;
+}
+
+// Visual: footer
+//
+// XXX
+
+footer {
+        font-family: $font-logo, sans-serif;
+}

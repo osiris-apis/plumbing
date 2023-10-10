@@ -1,0 +1,72 @@
+{%- set root = get_section(path="_index.md") -%}
+{%- set logo = resize_image(path="images/logo.png", width=100, height=100, op="fit") -%}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property='og:type' content='article' />
+
+    <title>{{ config.title }} – {{ config.description }}</title>
+
+    <meta name="title" content="{{ config.title }}" />
+    <meta name="DCTERMS.title" content="{{ config.title }}" />
+    <meta property="og:title" content="{{ config.title }}" />
+
+    <meta name="description" content="{{ config.description }}">
+    <meta name="DCTERMS.description" content="{{ config.description }}">
+    <meta property="og:description" content="{{ config.description }}" />
+
+    <link rel="icon" type="image/png" href="{{ get_url(path="images/favicon.png") }}" />
+    <link rel="stylesheet" type="text/css" href="{{ get_url(path="style.css") }}" />
+  </head>
+  <body>
+    <header>
+      <div id="logo">
+        <a href="{{ config.base_url | safe }}">
+          <img
+            alt="Page Logo"
+            src="{{ logo.url | safe }}"
+            width="{{ logo.width }}"
+            height="{{ logo.height }}"
+          />
+{%- if not current_path or current_path != root.path %}
+          {{ config.title }}
+{%- endif %}
+        </a>
+      </div>
+      <nav id="nav-global">
+        <ul>
+{%- if current_path and current_path == root.path %}
+          <li><a href="{{ root.permalink | safe }}" class="nav-active">{{ root.title }}</a></li>
+{%- else %}
+          <li><a href="{{ root.permalink | safe}}">{{ root.title }}</a></li>
+{%- endif %}
+
+{%- for page in root.pages %}
+{%- if current_path and current_path == page.path %}
+          <li><a href="{{ page.permalink | safe}}" class="nav-active">{{ page.title }}</a></li>
+{%- else %}
+          <li><a href="{{ page.permalink | safe}}">{{ page.title }}</a></li>
+{%- endif %}
+{%- endfor %}
+          <li><a href="https://github.com/osiris-apis">@GitHub</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+
+{% block main %}
+{% endblock main %}
+
+    </main>
+    <footer>
+      <section id="maintenance">
+        Maintained by the <a href="https://github.com/osiris-apis">Osirıs Community</a>
+      </section>
+    </footer>
+  </body>
+</html>

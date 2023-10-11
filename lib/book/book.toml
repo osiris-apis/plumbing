@@ -1,0 +1,14 @@
+[book]
+description = "Operating System Interfaces in Rust"
+language = "en"
+multilingual = false
+title = "Osirıs Documentation"
+
+[build]
+create-missing = false
+use-default-preprocessors = false
+
+[output.html]
+edit-url-template = "https://github.com/osiris-apis/plumbing/edit/main/lib/book/{path}"
+git-repository-url = "https://github.com/osiris-apis/plumbing/tree/main/lib/book"
+site-url = "/lib/book"

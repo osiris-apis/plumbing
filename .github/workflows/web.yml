@@ -1,0 +1,66 @@
+#
+# CI for Web Builds
+#
+# This builds the Zola-based website on every PR and Push and verifies that
+# it builds cleanly.
+#
+# If triggered by the deploy-hooks, it will be pushed out to the configured
+# target environments.
+#
+
+name: "CI for Web Builds"
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+    - ".github/workflows/web.yml"
+    - "lib/web/**"
+  push:
+    branches: ["main", "wip/**"]
+    paths:
+    - ".github/workflows/web.yml"
+    - "lib/web/**"
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy to Production"
+        required: false
+        default: "no"
+
+defaults:
+  run:
+    shell: "bash"
+
+jobs:
+  #
+  # Build/Test Website
+  #
+  # Build the website via `Zola` and run the configured tests to verify
+  # it is complete and valid.
+  #
+  ci:
+    name: "Web Build/Test"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Clone Repository"
+      uses: actions/checkout@v3
+
+    - name: "Build Website"
+      run: make web-build
+
+    - name: "Test Website"
+      run: make web-test
+
+    - name: "Deploy Website"
+
+      if: |
+        github.event_name == 'workflow_dispatch' &&
+        github.event.inputs.deploy == 'yes'
+
+      env:
+        OSRS_DEPLOY_HOSTNAME: ${{ secrets.DEPLOY_WEB_HOSTNAME }}
+        OSRS_DEPLOY_USERNAME: ${{ secrets.DEPLOY_WEB_USERNAME }}
+        OSRS_DEPLOY_PASSWORD: ${{ secrets.DEPLOY_WEB_PASSWORD }}
+
+      run: make deploy-web

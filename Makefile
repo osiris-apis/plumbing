@@ -78,17 +78,18 @@ deploy-web:
 	test ! -z "$${OSRS_DEPLOY_HOSTNAME}"
 	test ! -z "$${OSRS_DEPLOY_USERNAME}"
 	test ! -z "$${OSRS_DEPLOY_PASSWORD}"
-	sshpass \
-		"-eOSRS_DEPLOY_PASSWORD" \
-		sftp \
-			-o "BatchMode=no" \
-			-o "PreferredAuthentications=password" \
-			-o "PubkeyAuthentication=no" \
-			-b <(printf \
-				"%s\n" \
-				"put -R \"$(BUILDDIR)/web/.\" /" \
-			) \
-			"$${OSRS_DEPLOY_USERNAME}@$${OSRS_DEPLOY_HOSTNAME}"
+	SSHPASS="$${OSRS_DEPLOY_PASSWORD}" \
+		sshpass \
+			-e \
+			sftp \
+				-o "BatchMode=no" \
+				-o "PreferredAuthentications=password" \
+				-o "PubkeyAuthentication=no" \
+				-b <(printf \
+					"%s\n" \
+					"put -R \"$(BUILDDIR)/web/.\" /" \
+				) \
+				"$${OSRS_DEPLOY_USERNAME}@$${OSRS_DEPLOY_HOSTNAME}"
 
 #
 # Target: web-*

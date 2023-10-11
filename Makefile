@@ -85,6 +85,7 @@ deploy-web:
 				-o "BatchMode=no" \
 				-o "PreferredAuthentications=password" \
 				-o "PubkeyAuthentication=no" \
+				-o "StrictHostKeyChecking=no" \
 				-b <(printf \
 					"%s\n" \
 					"put -R \"$(BUILDDIR)/web/.\" /" \

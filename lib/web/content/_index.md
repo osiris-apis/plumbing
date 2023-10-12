@@ -1,15 +1,13 @@
 +++
 title = "About"
-
-sort_by = "weight"
 +++
 
 ## About
 
 The Osiris Project provides
-[documentation](@/learn.md),
-[infrastructure](@/community.md),
-[tooling](@/learn.md),
+[documentation](@/w/learn.md),
+[infrastructure](@/w/community.md),
+[tooling](@/w/learn.md),
 and
 [support-crates](https://github.com/osiris-apis/osi)
 for application development in Rust.

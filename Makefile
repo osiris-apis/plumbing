@@ -23,12 +23,15 @@ IMG_ZOLA		?= ghcr.io/getzola/zola:v0.17.2
 # Common Commands
 #
 
-DOCKER_RUN_SELF		= \
+DOCKER_RUN		= \
 	docker \
 		run \
 		--interactive \
-		--rm \
-		--user "$$(id -u):$$(id -g)" \
+		--rm
+
+DOCKER_RUN_SELF		= \
+	$(DOCKER_RUN) \
+		--user "$$(id -u):$$(id -g)"
 
 #
 # Target: help

@@ -1,0 +1,66 @@
+#
+# CI for Book Builds
+#
+# This builds the mdbook-based book on every PR and Push and verifies that
+# it builds cleanly.
+#
+# If triggered by the deploy-hooks, it will be pushed out to the configured
+# target environments.
+#
+
+name: "CI for Book Builds"
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+    - ".github/workflows/book.yml"
+    - "lib/book/**"
+  push:
+    branches: ["main", "wip/**"]
+    paths:
+    - ".github/workflows/book.yml"
+    - "lib/book/**"
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy to Production"
+        required: false
+        default: "no"
+
+defaults:
+  run:
+    shell: "bash"
+
+jobs:
+  #
+  # Build/Test Book
+  #
+  # Build the book via `mdbook` and run the configured tests to verify
+  # it is complete and valid.
+  #
+  ci:
+    name: "Book Build/Test"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Clone Repository"
+      uses: actions/checkout@v3
+
+    - name: "Build Book"
+      run: make book-build
+
+    - name: "Test Book"
+      run: make book-test
+
+    - name: "Deploy Book"
+
+      if: |
+        github.event_name == 'workflow_dispatch' &&
+        github.event.inputs.deploy == 'yes'
+
+      env:
+        OSRS_DEPLOY_HOSTNAME: ${{ secrets.DEPLOY_WEB_HOSTNAME }}
+        OSRS_DEPLOY_USERNAME: ${{ secrets.DEPLOY_WEB_USERNAME }}
+        OSRS_DEPLOY_PASSWORD: ${{ secrets.DEPLOY_WEB_PASSWORD }}
+
+      run: make deploy-book

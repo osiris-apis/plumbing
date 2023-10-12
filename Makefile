@@ -46,6 +46,13 @@ SSHPASS_E		= \
 	sshpass -e
 
 #
+# Common Functions
+#
+
+# Replace spaces with other characters in a list.
+F_REPLACE_SPACE		= $(subst $(eval ) ,$2,$1)
+
+#
 # Target: help
 #
 
@@ -160,6 +167,14 @@ deploy-web: deploy-verify-env
 # Target: web-*
 #
 
+WEB_TOPLEVEL = \
+	s \
+	w \
+	404.html \
+	index.html \
+	robots.txt \
+	sitemap.xml
+
 .PHONY: web-build
 web-build: $(BUILDDIR)/web/
 	$(DOCKER_RUN_SELF) \
@@ -185,4 +200,11 @@ web-serve: $(BUILDDIR)/web/
 
 .PHONY: web-test
 web-test:
+	@# Test existance of the directory.
 	test -d "$(BUILDDIR)/web"
+	@# Verify that we know exactly what is placed on the root level.
+	test "$$(ls "$(BUILDDIR)/web" | sort)" = \
+		"$$( \
+			printf \
+			"$(call F_REPLACE_SPACE,$(sort $(WEB_TOPLEVEL)),\n)\n" \
+		)"

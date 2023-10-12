@@ -76,11 +76,14 @@ FORCE:
 # Target: deploy-*
 #
 
-.PHONY: deploy-web
-deploy-web:
+.PHONY: deploy-verify-env
+deploy-verify-env:
 	test ! -z "$${OSRS_DEPLOY_HOSTNAME}"
 	test ! -z "$${OSRS_DEPLOY_USERNAME}"
 	test ! -z "$${OSRS_DEPLOY_PASSWORD}"
+
+.PHONY: deploy-web
+deploy-web: deploy-verify-env
 	SSHPASS="$${OSRS_DEPLOY_PASSWORD}" \
 		sshpass \
 			-e \

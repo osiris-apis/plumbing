@@ -16,6 +16,8 @@ SRCDIR			?= .
 # Build Images
 #
 
+# https://github.com/osiris-apis/plumbing/pkgs/container/osiris-lftp
+IMG_LFTP		?= ghcr.io/osiris-apis/osiris-lftp:latest
 # https://github.com/osiris-apis/plumbing/pkgs/container/osiris-mdbook
 IMG_MDBOOK		?= ghcr.io/osiris-apis/osiris-mdbook:latest
 # https://github.com/getzola/zola/pkgs/container/zola/versions
@@ -133,6 +135,25 @@ book-test:
 # Target: deploy-*
 #
 
+# Paths to preserve when syncing the top-level web sources.
+DEPLOY_WEB_PRESERVE	= \
+	lib
+
+F_DEPLOY_LFTP		= \
+	$(DOCKER_RUN_SELF) \
+		--volume "$(abspath $(BUILDDIR)):/srv/build" \
+		--volume "$(abspath $(SRCDIR)):/srv/src" \
+		"$(IMG_LFTP)" \
+			--norc \
+			-c " \
+			set ssl:check-hostname false \
+			&& open \
+				--user $${OSRS_DEPLOY_USERNAME} \
+				--password $${OSRS_DEPLOY_PASSWORD} \
+				$${OSRS_DEPLOY_HOSTNAME} \
+			&& $1 \
+			"
+
 .PHONY: deploy-verify-env
 deploy-verify-env:
 	test ! -z "$${OSRS_DEPLOY_HOSTNAME}"
@@ -154,14 +175,15 @@ deploy-book: deploy-verify-env
 
 .PHONY: deploy-web
 deploy-web: deploy-verify-env
-	SSHPASS="$${OSRS_DEPLOY_PASSWORD}" \
-		$(SSHPASS_E) \
-			$(SFTP_PUSH) \
-				-b <(printf \
-					"%s\n" \
-					"put -R \"$(BUILDDIR)/web/.\" /public/" \
-				) \
-				"$${OSRS_DEPLOY_USERNAME}@$${OSRS_DEPLOY_HOSTNAME}"
+	$(call \
+		F_DEPLOY_LFTP,\
+		mirror \
+			-epRv \
+			$(foreach I, $(DEPLOY_WEB_PRESERVE), -x $(I)) \
+			--transfer-all \
+			/srv/build/web \
+			/public \
+	)
 
 #
 # Target: web-*

@@ -37,16 +37,6 @@ DOCKER_RUN_SELF		= \
 	$(DOCKER_RUN) \
 		--user "$$(id -u):$$(id -g)"
 
-SFTP_PUSH		= \
-	sftp \
-		-o "BatchMode=no" \
-		-o "PreferredAuthentications=password" \
-		-o "PubkeyAuthentication=no" \
-		-o "StrictHostKeyChecking=no"
-
-SSHPASS_E		= \
-	sshpass -e
-
 #
 # Common Functions
 #
@@ -162,16 +152,14 @@ deploy-verify-env:
 
 .PHONY: deploy-book
 deploy-book: deploy-verify-env
-	SSHPASS="$${OSRS_DEPLOY_PASSWORD}" \
-		$(SSHPASS_E) \
-			$(SFTP_PUSH) \
-				-b <(printf \
-					"%s\n%s\n%s\n" \
-					"-mkdir /public/lib" \
-					"-mkdir /public/lib/book" \
-					"put -R \"$(BUILDDIR)/book/.\" /public/lib/book" \
-				) \
-				"$${OSRS_DEPLOY_USERNAME}@$${OSRS_DEPLOY_HOSTNAME}"
+	$(call \
+		F_DEPLOY_LFTP,\
+		mirror \
+			-epRv \
+			--transfer-all \
+			/srv/build/book \
+			/public/lib/book \
+	)
 
 .PHONY: deploy-web
 deploy-web: deploy-verify-env

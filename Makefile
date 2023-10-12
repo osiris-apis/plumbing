@@ -16,6 +16,8 @@ SRCDIR			?= .
 # Build Images
 #
 
+# https://github.com/osiris-apis/plumbing/pkgs/container/osiris-mdbook
+IMG_MDBOOK		?= ghcr.io/osiris-apis/osiris-mdbook:latest
 # https://github.com/getzola/zola/pkgs/container/zola/versions
 IMG_ZOLA		?= ghcr.io/getzola/zola:v0.17.2
 
@@ -57,6 +59,11 @@ help:
 	@echo
 	@echo "    help:               Print this usage information"
 	@echo
+	@echo "    book-build:         Build the mdbook-based book"
+	@echo "    book-serve:         Serve the mdbook-based book"
+	@echo "    book-test:          Run the book test suite"
+	@echo
+	@echo "    deploy-book:        Deploy the book"
 	@echo "    deploy-web:         Deploy the website"
 	@echo
 	@echo "    web-build:          Build the Zola-based website"
@@ -83,6 +90,39 @@ $(BUILDDIR)/%/:
 FORCE:
 
 #
+# Target: book-*
+#
+
+.PHONY: book-build
+book-build: $(BUILDDIR)/book/
+	$(DOCKER_RUN_SELF) \
+		--init \
+		--volume "$(abspath $(BUILDDIR)):/srv/build" \
+		--volume "$(abspath $(SRCDIR)):/srv/src" \
+		"$(IMG_MDBOOK)" \
+			build \
+			--dest-dir "/srv/build/book" \
+			"/srv/src/lib/book"
+
+.PHONY: book-serve
+book-serve: $(BUILDDIR)/book/
+	$(DOCKER_RUN_SELF) \
+		--init \
+		--publish "1111:1111" \
+		--volume "$(abspath $(BUILDDIR)):/srv/build" \
+		--volume "$(abspath $(SRCDIR)):/srv/src" \
+		"$(IMG_MDBOOK)" \
+			serve \
+			--dest-dir "/srv/build/book" \
+			--hostname "0.0.0.0" \
+			--port 1111 \
+			"/srv/src/lib/book"
+
+.PHONY: book-test
+book-test:
+	test -d "$(BUILDDIR)/book"
+
+#
 # Target: deploy-*
 #
 
@@ -91,6 +131,19 @@ deploy-verify-env:
 	test ! -z "$${OSRS_DEPLOY_HOSTNAME}"
 	test ! -z "$${OSRS_DEPLOY_USERNAME}"
 	test ! -z "$${OSRS_DEPLOY_PASSWORD}"
+
+.PHONY: deploy-book
+deploy-book: deploy-verify-env
+	SSHPASS="$${OSRS_DEPLOY_PASSWORD}" \
+		$(SSHPASS_E) \
+			$(SFTP_PUSH) \
+				-b <(printf \
+					"%s\n%s\n%s\n" \
+					"-mkdir /public/lib" \
+					"-mkdir /public/lib/book" \
+					"put -R \"$(BUILDDIR)/book/.\" /public/lib/book" \
+				) \
+				"$${OSRS_DEPLOY_USERNAME}@$${OSRS_DEPLOY_HOSTNAME}"
 
 .PHONY: deploy-web
 deploy-web: deploy-verify-env

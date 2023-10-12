@@ -99,7 +99,7 @@ deploy-web: deploy-verify-env
 			$(SFTP_PUSH) \
 				-b <(printf \
 					"%s\n" \
-					"put -R \"$(BUILDDIR)/web/.\" /" \
+					"put -R \"$(BUILDDIR)/web/.\" /public/" \
 				) \
 				"$${OSRS_DEPLOY_USERNAME}@$${OSRS_DEPLOY_HOSTNAME}"
 

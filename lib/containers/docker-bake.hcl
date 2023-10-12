@@ -75,6 +75,7 @@ function "mirror" {
 group "all-images" {
         targets = [
                 "all-osiris-android-sdk",
+                "all-osiris-mdbook",
         ]
 }
 
@@ -100,9 +101,6 @@ target "virtual-platforms" {
 
 /*
  * osiris-android-sdk - Android SDK Images for Osiris
- *
- * These images contain the relevant parts of the android-sdk to build Osiris
- * projects.
  */
 
 group "all-osiris-android-sdk" {
@@ -137,5 +135,35 @@ target "osiris-android-sdk-latest" {
         ]
         tags = concat(
                 mirror("osiris-android-sdk", "latest", "", OSRS_UNIQUEID),
+        )
+}
+
+/*
+ * osiris-mdbook - mdBook for Osiris
+ */
+
+group "all-osiris-mdbook" {
+        targets = [
+                "osiris-mdbook-latest",
+        ]
+}
+
+target "virtual-osiris-mdbook" {
+        dockerfile = "osiris-mdbook.Dockerfile"
+        inherits = [
+                "virtual-default",
+                "virtual-platforms",
+        ]
+}
+
+target "osiris-mdbook-latest" {
+        args = {
+                OSRS_FROM = "docker.io/library/alpine:latest",
+        }
+        inherits = [
+                "virtual-osiris-mdbook",
+        ]
+        tags = concat(
+                mirror("osiris-mdbook", "latest", "", OSRS_UNIQUEID),
         )
 }

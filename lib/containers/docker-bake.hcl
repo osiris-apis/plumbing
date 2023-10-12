@@ -75,6 +75,7 @@ function "mirror" {
 group "all-images" {
         targets = [
                 "all-osiris-android-sdk",
+                "all-osiris-lftp",
                 "all-osiris-mdbook",
         ]
 }
@@ -135,6 +136,36 @@ target "osiris-android-sdk-latest" {
         ]
         tags = concat(
                 mirror("osiris-android-sdk", "latest", "", OSRS_UNIQUEID),
+        )
+}
+
+/*
+ * osiris-lftp - lftp for Osiris
+ */
+
+group "all-osiris-lftp" {
+        targets = [
+                "osiris-lftp-latest",
+        ]
+}
+
+target "virtual-osiris-lftp" {
+        dockerfile = "osiris-lftp.Dockerfile"
+        inherits = [
+                "virtual-default",
+                "virtual-platforms",
+        ]
+}
+
+target "osiris-lftp-latest" {
+        args = {
+                OSRS_FROM = "docker.io/library/alpine:latest",
+        }
+        inherits = [
+                "virtual-osiris-lftp",
+        ]
+        tags = concat(
+                mirror("osiris-lftp", "latest", "", OSRS_UNIQUEID),
         )
 }
 

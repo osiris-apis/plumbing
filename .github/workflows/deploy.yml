@@ -1,0 +1,59 @@
+#
+# Manual Deployments
+#
+# This workflow can be manually triggered to re-deploy all resources that are
+# hosted in this repository.
+#
+
+name: "Manual Deployments"
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy to Production"
+        required: false
+        default: "no"
+
+defaults:
+  run:
+    shell: "bash"
+
+jobs:
+  #
+  # Build/Test Resources
+  #
+  # Build and test all resources that are part of any deployment. Verify
+  # that they are complete and valid.
+  #
+  ci:
+    name: "Build/Test Resources"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Clone Repository"
+      uses: actions/checkout@v3
+
+    - name: "Build Book"
+      run: make book-build
+    - name: "Test Book"
+      run: make book-test
+
+    - name: "Build Website"
+      run: make web-build
+    - name: "Test Website"
+      run: make web-test
+
+    - name: "Deploy Resources"
+
+      if: |
+        github.event_name == 'workflow_dispatch' &&
+        github.event.inputs.deploy == 'yes'
+
+      env:
+        OSRS_DEPLOY_HOSTNAME: ${{ secrets.DEPLOY_WEB_HOSTNAME }}
+        OSRS_DEPLOY_USERNAME: ${{ secrets.DEPLOY_WEB_USERNAME }}
+        OSRS_DEPLOY_PASSWORD: ${{ secrets.DEPLOY_WEB_PASSWORD }}
+
+      run: |
+        make deploy-book
+        make deploy-web

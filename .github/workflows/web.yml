@@ -12,12 +12,12 @@ name: "CI for Web Builds"
 
 on:
   pull_request:
-    branches: ["main"]
     paths:
     - ".github/workflows/web.yml"
     - "lib/web/**"
   push:
-    branches: ["main", "wip/**"]
+    branches-ignore: ["pr/**"]
+    tags: ["**"]
     paths:
     - ".github/workflows/web.yml"
     - "lib/web/**"

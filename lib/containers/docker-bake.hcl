@@ -153,8 +153,10 @@ group "all-osiris-ci" {
 target "virtual-osiris-ci" {
         args = {
                 OSRS_APK_PACKAGES = join(" ", [
+                        "alpine-sdk",
                         "bash",
                         "curl",
+                        "doas",
                         "gtk4.0-dev",
                         "jq",
                         "libadwaita-dev",

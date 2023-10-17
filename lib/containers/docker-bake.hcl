@@ -75,6 +75,7 @@ function "mirror" {
 group "all-images" {
         targets = [
                 "all-osiris-android-sdk",
+                "all-osiris-ci",
                 "all-osiris-lftp",
                 "all-osiris-mdbook",
         ]
@@ -136,6 +137,46 @@ target "osiris-android-sdk-latest" {
         ]
         tags = concat(
                 mirror("osiris-android-sdk", "latest", "", OSRS_UNIQUEID),
+        )
+}
+
+/*
+ * osiris-ci - Continuous Integration for Osiris
+ */
+
+group "all-osiris-ci" {
+        targets = [
+                "osiris-ci-latest",
+        ]
+}
+
+target "virtual-osiris-ci" {
+        args = {
+                OSRS_APK_PACKAGES = join(" ", [
+                        "bash",
+                        "curl",
+                        "gtk4.0-dev",
+                        "jq",
+                        "libadwaita-dev",
+                        "rustup",
+                ]),
+        }
+        dockerfile = "osiris-ci.Dockerfile"
+        inherits = [
+                "virtual-default",
+                "virtual-platforms",
+        ]
+}
+
+target "osiris-ci-latest" {
+        args = {
+                OSRS_FROM = "docker.io/library/alpine:latest",
+        }
+        inherits = [
+                "virtual-osiris-ci",
+        ]
+        tags = concat(
+                mirror("osiris-ci", "latest", "", OSRS_UNIQUEID),
         )
 }
 

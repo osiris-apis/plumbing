@@ -152,15 +152,15 @@ group "all-osiris-ci" {
 
 target "virtual-osiris-ci" {
         args = {
-                OSRS_APK_PACKAGES = join(" ", [
-                        "alpine-sdk",
+                OSRS_APT_PACKAGES = join(",", [
                         "bash",
+                        "build-essential",
+                        "ca-certificates",
                         "curl",
-                        "doas",
-                        "gtk4.0-dev",
                         "jq",
-                        "libadwaita-dev",
-                        "rustup",
+                        "libgtk-4-dev",
+                        "libadwaita-1-dev",
+                        "sudo",
                 ]),
         }
         dockerfile = "osiris-ci.Dockerfile"
@@ -172,7 +172,7 @@ target "virtual-osiris-ci" {
 
 target "osiris-ci-latest" {
         args = {
-                OSRS_FROM = "docker.io/library/alpine:latest",
+                OSRS_FROM = "docker.io/library/ubuntu:latest",
         }
         inherits = [
                 "virtual-osiris-ci",

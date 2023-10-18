@@ -75,4 +75,5 @@ COPY    --from=target . .
 
 USER    builder:builder
 WORKDIR /home/builder
+ENV     PATH="/home/builder/.cargo/bin:${PATH}"
 CMD     ["/bin/bash"]

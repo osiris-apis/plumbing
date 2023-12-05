@@ -149,7 +149,6 @@ RUN \
                 "${GRADLE_HOME}"
 RUN \
         rm -rf \
-                "${OSRS_OPT}/gradle-latest.txt" \
                 "${OSRS_OPT}/gradle-latest.zip"
 
 #
@@ -182,7 +181,6 @@ RUN \
                 "${KOTLIN_HOME}"
 RUN \
         rm -rf \
-                "${OSRS_OPT}/kotlin-latest.txt" \
                 "${OSRS_OPT}/kotlin-latest.zip"
 
 #
@@ -211,9 +209,6 @@ RUN \
         ln \
                 -s "${OSRS_OPT}/kotlin-compose" \
                 "${KOTLIN_HOME}/lib/kotlin-compose.jar"
-RUN \
-        rm -rf \
-                "${OSRS_OPT}/kotlin-compose-latest.txt"
 
 #
 # Clean the build environment up. Drop all build sources that are not required

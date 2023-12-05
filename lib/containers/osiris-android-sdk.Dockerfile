@@ -18,6 +18,15 @@
 #       The latest Gradle release is installed into `GRADLE_HOME`. This is
 #       the full release archive as provided by upstream Gradle.
 #
+#  * Kotlin: KOTLIN_HOME="~/opt/kotlin"
+#       The latest Kotlin release is installed into `KOTLIN_HOME`. This is
+#       the full release archive as provided by upstream Kotlin.
+#
+#  * Kotlin-Compose: "${KOTLIN_HOME}/lib/kotlin-compose.jar"
+#       The Kotlin-Compose compiler plugin is installed into the Kotlin
+#       distribution ready to be used via
+#       `-Xplugin=${KOTLIN_HOME}/lib/kotlin-compose.jar`.
+#
 # Arguments:
 #
 #  * OSRS_FROM="docker.io/library/ubuntu:latest"
@@ -142,6 +151,69 @@ RUN \
         rm -rf \
                 "${OSRS_OPT}/gradle-latest.txt" \
                 "${OSRS_OPT}/gradle-latest.zip"
+
+#
+# Fetch the latest Kotlin compiler release and provide it int `KOTLIN_HOME`.
+# The latest version can be queried via GitHub-releases.
+#
+
+ENV     KOTLIN_HOME="${OSRS_OPT}/kotlin"
+RUN \
+        curl \
+                -L \
+                --header "X-GitHub-Api-Version:2022-11-28" \
+                "https://api.github.com/repos/JetBrains/kotlin/releases/latest" \
+                        | jq -cer ".tag_name | .[1:]" \
+                        >"${OSRS_OPT}/kotlin-latest.txt"
+RUN \
+        mkdir -p "${OSRS_OPT}/kotlin-$(cat "${OSRS_OPT}/kotlin-latest.txt")"
+RUN \
+        curl \
+                -L \
+                -o "${OSRS_OPT}/kotlin-latest.zip" \
+                "https://github.com/JetBrains/kotlin/releases/download/v$(cat "${OSRS_OPT}/kotlin-latest.txt")/kotlin-compiler-$(cat "${OSRS_OPT}/kotlin-latest.txt").zip"
+RUN \
+        unzip \
+                -d "${OSRS_OPT}/kotlin-$(cat "${OSRS_OPT}/kotlin-latest.txt")" \
+                "${OSRS_OPT}/kotlin-latest.zip"
+RUN \
+        ln \
+                -s "kotlin-$(cat "${OSRS_OPT}/kotlin-latest.txt")/kotlinc" \
+                "${KOTLIN_HOME}"
+RUN \
+        rm -rf \
+                "${OSRS_OPT}/kotlin-latest.txt" \
+                "${OSRS_OPT}/kotlin-latest.zip"
+
+#
+# Fetch the latest Jetpack-Compose Kotlin Compiler Plugin from the Android
+# release repository. Ideally, we would match the Kotlin version and fetch
+# a suitable plugin release. However, fetching the latest version should work
+# just as well for now.
+#
+
+RUN \
+        curl \
+                -L \
+                "https://dl.google.com/android/maven2/androidx/compose/compiler/compiler-hosted/maven-metadata.xml" \
+                        | xq -x "/metadata/versioning/latest" \
+                        >"${OSRS_OPT}/kotlin-compose-latest.txt"
+RUN \
+        curl \
+                -L \
+                -o "${OSRS_OPT}/kotlin-compose-$(cat "${OSRS_OPT}/kotlin-compose-latest.txt").jar" \
+                "https://dl.google.com/android/maven2/androidx/compose/compiler/compiler-hosted/$(cat "${OSRS_OPT}/kotlin-compose-latest.txt")/compiler-hosted-$(cat "${OSRS_OPT}/kotlin-compose-latest.txt").jar"
+RUN \
+        ln \
+                -s "kotlin-compose-$(cat "${OSRS_OPT}/kotlin-compose-latest.txt").jar" \
+                "kotlin-compose"
+RUN \
+        ln \
+                -s "${OSRS_OPT}/kotlin-compose" \
+                "${KOTLIN_HOME}/lib/kotlin-compose.jar"
+RUN \
+        rm -rf \
+                "${OSRS_OPT}/kotlin-compose-latest.txt"
 
 #
 # Clean the build environment up. Drop all build sources that are not required

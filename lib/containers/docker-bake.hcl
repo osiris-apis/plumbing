@@ -119,6 +119,7 @@ target "virtual-osiris-android-sdk" {
                         "jq",
                         "openjdk-17-jdk-headless",
                         "unzip",
+                        "xq",
                 ]),
         }
         dockerfile = "osiris-android-sdk.Dockerfile"

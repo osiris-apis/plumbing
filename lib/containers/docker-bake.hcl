@@ -130,7 +130,7 @@ target "virtual-osiris-android-sdk" {
 
 target "osiris-android-sdk-latest" {
         args = {
-                OSRS_FROM = "docker.io/library/ubuntu:latest",
+                OSRS_FROM = "docker.io/library/ubuntu:rolling",
         }
         inherits = [
                 "virtual-osiris-android-sdk",

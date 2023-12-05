@@ -4,7 +4,7 @@
 # This image provides the Android SDK as required for Osiris. The base image
 # uses Ubuntu Linux and pulls in required development utilities.
 #
-# The image uses UID 1000 ("builder") with `/home/builder` as working
+# The image uses UID 1000 ("ubuntu") with `/home/ubuntu` as working
 # directory. The following tools are provided in `~/opt/`:
 #
 #  * Android SDK: ANDROID_HOME="~/opt/android-sdk"
@@ -43,9 +43,7 @@ COPY    tools tools
 ARG     OSRS_APT_PACKAGES=""
 RUN     ./tools/aptget.sh "${OSRS_APT_PACKAGES}"
 
-RUN     useradd -mU -s /bin/bash -G sudo -u 1000 builder
-
-ENV     OSRS_OPT="/home/builder/opt"
+ENV     OSRS_OPT="/home/ubuntu/opt"
 RUN     mkdir -p "${OSRS_OPT}"
 
 #
@@ -150,7 +148,7 @@ RUN \
 # in the final artifact.
 #
 
-RUN     chown -R "builder:builder" /home/builder
+RUN     chown -R "ubuntu:ubuntu" /home/ubuntu
 RUN     rm -rf /osiris/build
 
 #
@@ -161,5 +159,5 @@ RUN     rm -rf /osiris/build
 FROM    scratch
 COPY    --from=target . .
 
-USER    builder:builder
-WORKDIR /home/builder
+USER    ubuntu:ubuntu
+WORKDIR /home/ubuntu

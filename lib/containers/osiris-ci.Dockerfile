@@ -54,6 +54,12 @@ RUN     rustup toolchain install nightly
 RUN     rustup toolchain install stable
 RUN     rustup component add --toolchain nightly rust-src
 RUN     rustup component add --toolchain stable rust-src
+RUN     rustup target add x86_64-apple-darwin
+RUN     rustup target add x86_64-apple-ios
+RUN     rustup target add x86_64-linux-android
+RUN     rustup target add x86_64-pc-windows-gnu
+RUN     rustup target add x86_64-pc-windows-msvc
+RUN     rustup target add x86_64-unknown-linux-gnu
 
 USER    root:root
 

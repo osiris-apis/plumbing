@@ -12,7 +12,7 @@
   - [iOS]()
   - [Linux]()
   - [macOS](./ref/platforms-macos.md)
-  - [Windows]()
+  - [Windows](./ref/platforms-windows.md)
 
 ---
 

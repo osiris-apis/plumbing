@@ -39,9 +39,9 @@ releases for older Windows platforms still support *Intel 32-bit* and
   default for all current Windows platforms. Windows uses its
   [own ABI](https://learn.microsoft.com/en-us/cpp/build/x64-software-conventions)
   and deviates heavily from other platforms. The official platform ABI is often
-  denoted as **MSVC**, given that many UNIX ports uses the **System V** ABI on
-  Windows as well. However, any foreign ABI will have to use *foreign function
-  interfaces (FFI)* to interact with the platform.
+  denoted as **MSVC**. Ports of common UNIX software sometimes uses the
+  **System V** ABI on Windows as well. However, any foreign ABI will have to
+  use *foreign function interfaces (FFI)* to interact with the platform.
 
 - **ARM 64-bit**: The 64-bit ARM architecture is officially support by the
   Windows platform and follows the
@@ -51,7 +51,8 @@ releases for older Windows platforms still support *Intel 32-bit* and
 
 Machine code is packaged as
 [*PE32+*](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format),
-(which is an extension to *PE*/*PE32*, itself an extension to *COFF*).
+(which is an extension to *PE*/*PE32*, itself an extension to *COFF*). They
+still carry an *MS-DOS MZ Stub*, but mostly for historic reasons.
 
 No special runtime is required on the platform, yet most applications link to
 the

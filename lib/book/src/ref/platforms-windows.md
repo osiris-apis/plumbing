@@ -58,3 +58,42 @@ No special runtime is required on the platform, yet most applications link to
 the
 [*Microsoft C Runtime (CRT)*](https://learn.microsoft.com/en-us/cpp/c-runtime-library/c-run-time-library-reference)
 to gain access to common functionality and access platform interfaces.
+
+## Packaging
+
+For a long time, the
+[Windows Installer](https://learn.microsoft.com/en-us/windows/win32/msi/windows-installer-portal)
+was the recommended installation method for *Windows Applications*. It consumes
+*MSI* packages, which combine the application assets with metadata, visual
+installation guidance, and custom installation actions. While still supported
+by the current Windows platform, there is a move towards *MSIX* and the
+*App Installer*.
+
+[*MSIX*](https://learn.microsoft.com/en-us/windows/msix/)
+is a completely new format to replace *MSI*. It dropped all support for custom
+installation actions, or any other non-deterministic operations at install
+time. Instead, it provides a declarative approach to the installation procedure
+and enforces a virtualized view of the system for all installed applications.
+This allows much better control over applications on a platform, and increases
+reliability of the platform as a whole.
+
+*MSIX* is an evolution of
+[*Appx*](https://learn.microsoft.com/en-us/windows/win32/appxpkg/appx-portal),
+which was introduced with the Microsoft Store. The store allows updating and
+side-loading applications seemlessly, as well as managing basic dependencies
+across applications and frameworks. Nowadays, *Appx* is mostly used
+synonymously with *MSIX*.
+
+The *MSIX* format follows the
+[*Open Packaging Conventions (OPC)*](https://en.wikipedia.org/wiki/Open_Packaging_Conventions),
+an open *ZIP* based ISO/IEC standard. The open-source and cross-platform
+[*MSIX SDK*](https://github.com/microsoft/msix-packaging)
+can be used to create, modify, and install *MSIX* packages.
+
+Unlike its predecessor *MSI*, the *MSIX* format has very restricted
+capabilities. It is mostly used to extract application assets and binaries onto
+a managed location on the system, setup a virtualized view of the
+*Windows Registry* with required keys, as well as provide metadata to integrate
+the application into key parts of the Windows platform. This includes
+registering context-menus, integrating into the start-menu, providing
+invocation aliases, and more.

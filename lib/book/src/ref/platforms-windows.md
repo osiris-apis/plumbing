@@ -97,3 +97,31 @@ a managed location on the system, setup a virtualized view of the
 the application into key parts of the Windows platform. This includes
 registering context-menus, integrating into the start-menu, providing
 invocation aliases, and more.
+
+## Rust Ecosystem
+
+The Rust compiler has native support for *ARM* and *Intel* Window platforms via
+the
+[`aarch64-pc-windows-msvc`](https://doc.rust-lang.org/nightly/rustc/platform-support.html)
+and
+[`x86_64-pc-windows-msvc`](https://doc.rust-lang.org/nightly/rustc/platform-support.html)
+targets. Additionally, there are targets for legacy architectures, including
+[`i586-pc-windows-msvc`](https://doc.rust-lang.org/nightly/rustc/platform-support.html),
+[`i686-pc-windows-msvc`](https://doc.rust-lang.org/nightly/rustc/platform-support.html),
+[`*-win7-windows-msvc`](https://doc.rust-lang.org/nightly/rustc/platform-support.html),
+as well as alternative targets using GNU or LLVM runtimes instead of the
+runtime from Microsoft (see
+[`*-pc-windows-gnu`](https://doc.rust-lang.org/nightly/rustc/platform-support.html),
+[`*-pc-windows-gnullvm`](https://doc.rust-lang.org/nightly/rustc/platform-support.html)).
+Lastly, the Rust compiler ships preliminary support for *UWP*-only applications
+via the
+[`*-uwp-windows-gnu`](https://doc.rust-lang.org/nightly/rustc/platform-support.html)
+targets.
+
+The *Windows Runtime* as well as almost all Windows APIs are exposed via the
+[*windows-sys*](https://creates.io/crates/windows-sys)
+crate maintained by Microsoft. The
+[*windows*](https://creates.io/crates/windows)
+crate provides more ergonomic Rust wrappers as well as *COM* support. Since
+both crates are maintained by Microsoft, they are the de-facto standard to
+access platform APIs on Windows.
